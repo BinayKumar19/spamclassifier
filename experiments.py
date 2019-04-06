@@ -86,19 +86,19 @@ def experiments_one_to_five(experiment_no,train_files_path, test_files_path, par
         model_output_file = 'data/demo-result-exp2.txt'
     elif experiment_no == 3:
         classifier.word_length_filtering = True
-        test_output_file = 'data/demo-model-exp3.txt'
-        model_output_file = 'data/demo-result-exp3.txt'
+        model_output_file = 'data/demo-model-exp3.txt'
+        test_output_file = 'data/demo-result-exp3.txt'
     elif experiment_no == 5:
-        test_output_file = 'data/demo-model-exp5.txt'
-        model_output_file = 'data/demo-result-exp5.txt'
+        model_output_file = 'data/demo-model-exp5.txt'
+        test_output_file = 'data/demo-result-exp5.txt'
     else:
-        test_output_file = 'data/demo-model-base.txt'
-        model_output_file = 'data/demo-result-base.txt'
+        model_output_file = 'data/demo-model-base.txt'
+        test_output_file = 'data/demo-result-base.txt'
 
     classifier.load_vocabulary()
     if experiment_no == 4:
-        test_output_file = 'data/demo-model-exp4.txt'
-        model_output_file = 'data/demo-result-exp4.txt'
+        model_output_file = 'data/demo-model-exp4.txt'
+        test_output_file = 'data/demo-result-exp4.txt'
         if parameter1 != 0:
             classifier.infrequent_word_filtering(parameter1)
         if parameter2 != 0:
