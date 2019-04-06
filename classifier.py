@@ -6,7 +6,11 @@ import numpy as np
 
 class Classifier:
 
-    def __init__(self):
+    ham_documents_format = "train-ham-*.txt"
+    spam_documents_format = "train-spam-*.txt"
+    test_documents_format = "*.txt"
+
+    def __init__(self, train_documents_path, test_documents_path):
         self.stop_words = []
         self.vocabulary = {}
         self.conditional_prob = None
@@ -23,6 +27,8 @@ class Classifier:
 
         self.delta = 0.0
         self.word_length_filtering = False
+        self.train_documents_path = train_documents_path
+        self.test_documents_path = test_documents_path
 
     def load_words(self, documents):
         words_frequency = {}
@@ -53,9 +59,9 @@ class Classifier:
         with open(file_path, 'r') as file:
             self.stop_words = file.read()
 
-    def load_vocabulary(self, ham_documents_path, spam_documents_path):
-        training_ham_documents = glob.glob(ham_documents_path)
-        training_spam_documents = glob.glob(spam_documents_path)
+    def load_vocabulary(self):
+        training_ham_documents = glob.glob(self.train_documents_path + self.ham_documents_format)
+        training_spam_documents = glob.glob(self.train_documents_path+ self.spam_documents_format)
         self.ham_prior = len(training_ham_documents) / (len(training_ham_documents) + len(training_spam_documents))
         self.spam_prior = len(training_spam_documents) / (len(training_ham_documents) + len(training_spam_documents))
         self.spam_words_frequency, self.spam_words_count_initial = self.load_words(training_spam_documents)
@@ -68,7 +74,7 @@ class Classifier:
         self.spam_words_count = self.spam_words_count_initial + self.delta * len(self.vocabulary)
         self.ham_words_count = self.ham_words_count_initial + self.delta * len(self.vocabulary)
 
-    def build_model(self, output_file_path):
+    def build_model(self, output_file_path = None):
         vocabulary_size = len(self.vocabulary)
         model = []
         self.conditional_prob = np.zeros((2, vocabulary_size))
@@ -96,8 +102,8 @@ class Classifier:
         if output_file_path != None:
             self.file_write(output_file_path, model)
 
-    def test_model(self, test_documents_path, output_file_path):
-        testing_documents = glob.glob(test_documents_path)
+    def test_model(self, output_file_path = None):
+        testing_documents = glob.glob(self.test_documents_path + self.test_documents_format)
         testing_result = []
         document_count = 0
         accouracy_count = 0
