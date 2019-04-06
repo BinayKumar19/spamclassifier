@@ -76,9 +76,10 @@ def smoothing(train_documents_path, test_documents_path):
     y_label = 'Time taken'
     plot_graph(x, time, title, x_label, y_label)
 
-def experiments_one_to_five(experiment_no,train_files_path, test_files_path, parameter1 = None, parameter2 = None):
+def experiments_one_to_five(experiment_no,train_files_path, test_files_path, parameter1 = 0.5, parameter2 = None):
     start_time = datetime.datetime.now()
     classifier = Classifier(train_files_path, test_files_path)
+
     if experiment_no == 2:
         classifier.load_stopwords('data/English-Stop-Words.txt')
         test_output_file = 'data/demo-model-exp2.txt'
@@ -87,22 +88,22 @@ def experiments_one_to_five(experiment_no,train_files_path, test_files_path, par
         classifier.word_length_filtering = True
         test_output_file = 'data/demo-model-exp3.txt'
         model_output_file = 'data/demo-result-exp3.txt'
-    elif experiment_no == 4:
-        classifier.word_length_filtering = True
+    elif experiment_no == 5:
+        test_output_file = 'data/demo-model-exp5.txt'
+        model_output_file = 'data/demo-result-exp5.txt'
+    else:
+        test_output_file = 'data/demo-model-base.txt'
+        model_output_file = 'data/demo-result-base.txt'
+
+    classifier.load_vocabulary()
+    if experiment_no == 4:
         test_output_file = 'data/demo-model-exp4.txt'
         model_output_file = 'data/demo-result-exp4.txt'
         if parameter1 != 0:
             classifier.infrequent_word_filtering(parameter1)
         if parameter2 != 0:
             classifier.infrequent_word_filtering_percentage(parameter2)
-    elif experiment_no == 5:
-        classifier.perform_smoothing(parameter1)
-        test_output_file = 'data/demo-model-exp5.txt'
-        model_output_file = 'data/demo-result-exp5.txt'
-    else:
-        test_output_file = 'data/demo-model-base.txt'
-        model_output_file = 'data/demo-result-base.txt'
-    classifier.load_vocabulary()
+    classifier.perform_smoothing(parameter1)
     classifier.build_model(model_output_file)
     accuracy = classifier.test_model(test_output_file)
     end_time = datetime.datetime.now()
