@@ -56,8 +56,8 @@ def smoothing(train_documents_path, test_documents_path):
         classifier = Classifier(train_documents_path, test_documents_path)
         classifier.load_vocabulary()
         classifier.perform_smoothing(delta)
-        classifier.build_model(None)
-        accuracy = classifier.test_model("data/test/*.txt", None)
+        classifier.build_model()
+        accuracy = classifier.test_model()
         end_time = datetime.datetime.now()
         print('For smoothing = ' + str(delta) + ',   Accuracy =' + str(accuracy) + '   Time taken =' + str(
             (end_time - start_time).total_seconds()))
