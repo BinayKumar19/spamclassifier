@@ -82,8 +82,8 @@ def experiments_one_to_five(experiment_no,train_files_path, test_files_path, par
 
     if experiment_no == 2:
         classifier.load_stopwords('data/English-Stop-Words.txt')
-        test_output_file = 'data/demo-model-exp2.txt'
-        model_output_file = 'data/demo-result-exp2.txt'
+        model_output_file = 'data/demo-model-exp2.txt'
+        test_output_file = 'data/demo-result-exp2.txt'
     elif experiment_no == 3:
         classifier.word_length_filtering = True
         model_output_file = 'data/demo-model-exp3.txt'
