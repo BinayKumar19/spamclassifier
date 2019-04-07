@@ -26,6 +26,8 @@ def word_filtering(train_documents_path, test_documents_path, filter_type, start
         classifier.build_model()
         accuracy = classifier.test_model()
         end_time = datetime.datetime.now()
+        if max_frequency == 0:
+            max_frequency = max_frequency + 1
         print('For word filtering frequency = ' + str(max_frequency) + ',   Accuracy =' + str(
             accuracy) + '   Time taken =' + str((end_time - start_time).total_seconds()))
         x.append(max_frequency)

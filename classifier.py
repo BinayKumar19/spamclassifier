@@ -146,9 +146,6 @@ class Classifier:
             # print(result_line)
             testing_result.append(result_line)
 
-        # print(accouracy_count)
-        # print(non_accouracy_count)
-        # print(document_count)
         accuracy = (accouracy_count / document_count) * 100
 
         if output_file_path != None:
