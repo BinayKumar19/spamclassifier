@@ -41,6 +41,9 @@ class Classifier:
             words = re.split('[^a-zA-Z]', data)
 
             for word in words:
+                if len(word) == 0:
+                    continue
+
                 if word not in self.stop_words:
                     if self.word_length_filtering and len(word) not in range(3, 9):
                         continue
