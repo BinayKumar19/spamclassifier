@@ -89,10 +89,8 @@ class Classifier:
         word_index = 0
         for word in vocabulary_sorted:
             self.vocabulary[word] = word_index
-            self.conditional_prob[0, word_index] = self.ham_words_frequency.get(word,
-                                                                                0) + self.delta / self.ham_words_count
-            self.conditional_prob[1, word_index] = self.spam_words_frequency.get(word,
-                                                                                 0) + self.delta / self.spam_words_count
+            self.conditional_prob[0, word_index] = (self.ham_words_frequency.get(word, 0) + self.delta) / self.ham_words_count
+            self.conditional_prob[1, word_index] = (self.spam_words_frequency.get(word ,0) + self.delta) / self.spam_words_count
 
             model_line = str(word_index + 1) + "  " + word + "  " + str(self.ham_words_frequency.get(word, 0)) + "  " + \
                          str(self.conditional_prob[0, word_index]) + "  " + str(
